@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+<style>
+    #svgcontainer {
+
+        width: 50%;
+        margin: 0 auto;
+        border: 1px solid;
+    }
+
+    line {
+        stroke: #a55;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        transition: all 2s ease;
+        /*animation: lineMove 0.5s linear infinite;*/
+    }
+    polyline {
+        fill: none; 
+        stroke: black;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        transition: all 2s ease;
+    }
+
+/*
+    @keyframes lineMove {
+       0% {stroke-dasharray: 0, 100;}
+       100% {stroke-dasharray: 100, 100}
+    }*/
+
+
+</style>
+</head>
+<body>
+    
+<div id="svgcontainer">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="80" x2="100" y2="80" stroke="black" />
+      <polyline points="0,100 10,60 20,40 15,80 50,20">
+        <!-- If you do not specify the stroke
+             color the line will not be visible -->
+      </svg>
+    </div>
+
+    <script>
+        "use strict";
+
+
+        document.querySelector("#svgcontainer").addEventListener("mouseover", strokeDraw);
+        function strokeDraw(){
+
+
+        document.querySelector("polyline").style.strokeDashoffset = 0;
+        
+    }
+        
+    document.querySelector("#svgcontainer").addEventListener("mouseout", strokeBack);
+        function strokeBack(){
+
+
+        document.querySelector("polyline").style.strokeDashoffset = 100;
+        
+    }
+        </script>
+</body>
+</html>

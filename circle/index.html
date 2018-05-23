@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        #circle{
+            width: 50%;
+            fill: none;
+            stroke: #f00;
+            stroke-width: 100;
+            stroke-dasharray: 10 314;
+        } 
+
+        svg{
+            background: #999;
+            transform: rotate(-90deg);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #c1{
+            width: 50%;
+            fill: none;
+            stroke: #f00;
+            stroke-width: 100;
+            stroke-dasharray: 0 314;
+            stroke-dashoffset: 0;
+            transition: all 2s ease;
+        }
+
+        #c2{
+            width: 50%;
+            fill: none;
+            stroke:yellow;
+            stroke-width: 100;
+            stroke-dasharray: 0 314;
+            stroke-dashoffset: 0;
+            transition: all 2s ease;
+        }
+
+        #c3{
+            width: 50%;
+            fill: none;
+            stroke:green;
+            stroke-width: 100;
+            stroke-dasharray: 0 314;
+            stroke-dashoffset: 0;
+            transition: all 2s ease;
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+
+    <div id="circle">
+
+        <svg viewBox="0 0 100 100" xlmns= "http/www.w3.org/200/svg">
+        <circle id="c1" cx="50" cy="50" r="50"/>
+        <circle id="c2" cx="50" cy="50" r="50"/> 
+        <circle id="c3" cx="50" cy="50" r="50"/>         
+        </svg>
+
+
+
+    </div>
+
+    <script>
+    document.querySelector("svg").addEventListener("mouseover", animate);
+
+        function animate(){
+            document.querySelector("#c1").style.strokeDashoffset = 0;
+            document.querySelector("#c2").style.strokeDashoffset = -10;
+            document.querySelector("#c3").style.strokeDashoffset = -60;
+
+            document.querySelector("#c1").style.strokeDasharray = 10, 314;
+            document.querySelector("#c2").style.strokeDasharray = 50,314 ;
+            document.querySelector("#c3").style.strokeDasharray = 60,314;
+        }
+
+
+        document.querySelector("svg").addEventListener("mouseout",animateOut);
+
+        function animateOut(){
+            document.querySelector("#c1").style.strokeDashoffset = 0;
+            document.querySelector("#c2").style.strokeDashoffset = 0;
+            document.querySelector("#c3").style.strokeDashoffset = 0;
+
+            document.querySelector("#c1").style.strokeDasharray = 0, 314;
+            document.querySelector("#c2").style.strokeDasharray = 0, 314 ;
+            document.querySelector("#c3").style.strokeDasharray = 0, 314;
+        }
+    
+    </script>
+    
+</body>
+</html>
