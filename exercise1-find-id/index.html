@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
+    <style>
+    .vis{
+          opacity: 0;
+          transform: translateY(-3px);
+          animation: flyt 1s 0s ease-out forwards;
+      }
+      
+      @keyframes flyt{
+          to{
+              opacity: 1;
+              transform: translateY(0px);
+          }
+      }
+      
+      #text{
+          width: 50px;
+          font-size: 5px;
+          height: 20px; 
+          border-style: solid;
+          border-width: 2px;
+          border-color: darkred;
+          padding: 5px; 
+      }
+    
+    
+    </style>
+</head>
+
+
+<body>
+    
+<div id="graphic"></div>
+<div id="text"></div>
+
+
+
+        <script>
+            
+            document.addEventListener("DOMContentLoaded", loadSvg);
+
+            async function loadSvg() {
+
+            let selected;
+            let selectedID;
+            let infobox;
+
+                // load json
+                let jsonObjekt = await fetch("text.json");
+                let elementer = await jsonObjekt.json();
+
+
+             //load svg	
+            let mySvg = await fetch("layers.svg");
+            let svg = await mySvg.text();
+
+            document.querySelector("#graphic").innerHTML = svg;
+             }
+
+             let info_1 = document.querySelector("#graphic #spots #bike ");
+            let info_2 = document.querySelector("#graphic #spots #mac");
+            let info_3 = document.querySelector("#graphic #spots #phone");
+
+/*              document.querySelector("#graphic").addEventListener("mouseover",showElement);
+
+             function showElement(){
+                 console.log(event.target.getAttribute("id"));
+             } */
+
+             document.querySelector("#graphic #spots").addEventListener("mouseover", function(punkt){
+        clicked(punkt); //eller brug mouseover til 'hover' funktion
+    });
+
+
+
+
+    function clicked(obj){
+        
+        if(infobox != undefined){
+            document.querySelector("#text").textContent = "";
+            document.querySelector("#text").classList.remove("vis");
+        }
+        
+    
+    // a. find det klikkede element
+    //----------------------------------------------
+    
+    selected = obj.target;
+    //console.log(selected);
+    
+        
+    // b. find det klikkede elementets ID
+    //--------------------------------------------
+    
+    selectedID = selected.getAttribute("id");   
+    //console.log(selectedID);
+  
+
+ 
+    // d. vis infobokse
+    //--------------------------------------------
+        
+    elementer.forEach(element =>{
+        
+    if (element.sted == selectedID){
+        document.querySelector("#text").textContent = element.tekst;
+    // tilføj klasse for css-animation
+        document.querySelector("#text").classList.add("vis");
+
+
+     if(selectedID == "bike"){
+        animerBox(info_1);
+    }
+        
+    if(selectedID == "phone"){
+        animerBox(info_2);
+    
+    }
+        
+    if(selectedID == "mac"){
+        animerBox(info_3);
+  
+    }
+        
+    function animerBox(box){
+        infobox = box;
+        infobox.style.visibility = "visible";
+        infobox.classList.add("vis");
+    }
+}        
+
+});
+        
+        
+};
+            
+            </script>
+</body>
+</html>

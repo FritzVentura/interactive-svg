@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Interaktiv Danmark</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        #map{
+            width: 80%;
+        }
+
+    </style>
+    
+</head>
+
+<body>
+
+    <div id="map"></div>
+    <div id="text"></div>
+    
+
+    <script>
+
+    // global variables
+        let fillColor;
+        let newColor = "#ca1";
+        let areaId;
+        let myJson;
+        let id;
+
+    // run program
+        document.addEventListener("DOMContentLoaded", getData);
+
+        async function getData(){
+
+    //load svg
+            const svgData = await fetch ("map.svg");
+            let mySvg = await svgData.text();
+            //console.log(mySvg);
+            
+    //show the svg in DOM
+            document.querySelector("#map").innerHTML = mySvg;
+        
+    //load the json
+            const jsonData = await fetch ("data.json");
+            myJson = await jsonData.json();
+            //console.log(myJson);
+
+
+    //change color on mouseover
+            document.querySelector("svg").addEventListener("mouseover",changeColor);
+
+    //change color on mouseover/back
+            document.querySelector("svg").addEventListener("mouseout",orgColor);
+
+        }
+
+
+    // change color on hover
+        function changeColor(){
+            //console.log(myJson);
+    // what have I hovered
+            let area = event.target;
+            areaId = area.id;
+            id = area.parentElement.id;
+            fillColor = area.getAttribute("fill");
+            //console.log(fillColor);
+
+            document.querySelector("#"+areaId).setAttribute("fill",newColor);
+
+            myJson.forEach(element =>{
+    // see if there is a match between id and json (city)
+                if(element.city == id){
+                    console.log("city is",element.city);
+                    document.querySelector("#text").textContent = element.city;
+                }
+            })
+        }
+
+
+    // change color back on mouseout
+        function orgColor(){
+            document.querySelector("#"+areaId).setAttribute("fill",fillColor);
+        }
+
+
+
+    
+    </script>
+
+</body>
+
+</html>

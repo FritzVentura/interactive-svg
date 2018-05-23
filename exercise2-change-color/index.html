@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
+    <style>
+    #pie{
+        width: 400px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+
+<body>
+
+    <div id="pie"></div>
+    
+    <script>
+
+        let orgColor;
+        let id;
+        document.addEventListener("DOMContentLoaded", loadSVG);
+
+        async function loadSVG() {
+            let svgData = await fetch("pie2.svg");
+            let svg = await svgData.text();
+
+            console.log(svg);
+
+            document.querySelector("#pie").innerHTML = svg;
+
+        }
+
+            // document.querySelector(".pie").addEventListener("click", showElement);
+
+            // function showElement() {
+            //     id = event.target.getAttribute("id");
+            //     orgColor = document.querySelector("#"+id).getAttribute("fill");
+            //     console.log(orgColor);
+
+            // }
+
+        document.querySelector("#pie").addEventListener("mouseover", changeColor);
+
+        function changeColor() {
+            id = event.target.getAttribute("id");
+            orgColor = document.querySelector("#"+id).getAttribute("fill");
+            document.querySelector("#"+id).setAttribute("fill", "#ca1");
+        }
+
+        document.querySelector("#pie").addEventListener("mouseout", revertColor);
+        
+        function revertColor() {
+            document.querySelector("#"+id).setAttribute("fill", orgColor);
+        }
+
+    
+    </script>
+
+    
+</body>
+</html>
